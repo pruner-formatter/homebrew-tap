@@ -1,0 +1,33 @@
+name: Update
+on: [workflow_dispatch]
+permissions:
+  contents: write
+  packages: write
+  
+
+jobs:
+  update-kmono:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout git repo
+      uses: actions/checkout@v4
+
+    - uses: DeLaGuardo/setup-clojure@9.5
+      with:
+        bb: latest
+
+    - name: Configure git
+      run: |
+        git config --global user.email "ci@julienvincent.io"
+        git config --global user.name "Homebrew Tap"
+
+    - name: Compile Pruner
+      run: |
+        message=$(scripts/compile.bb pruner-formatter pruner)
+        git add .
+        git commit -m "${message}" || true
+
+    - name: Release
+      run: |
+        git push

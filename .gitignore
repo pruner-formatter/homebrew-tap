@@ -1,0 +1,5 @@
+.DS_Store
+.lsp
+.cpcache
+.clj-kondo
+deps.edn
