@@ -1,9 +1,10 @@
 name: Update
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch: {}
+
 permissions:
   contents: write
   packages: write
-  
 
 jobs:
   update-kmono:
